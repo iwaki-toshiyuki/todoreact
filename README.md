@@ -1,2 +1,5 @@
 # todoreact
-Created with CodeSandbox
+起動コマンド
+```
+npm start
+```
