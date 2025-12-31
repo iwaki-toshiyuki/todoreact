@@ -2,15 +2,29 @@ import "./styles.css";
 import { useState } from "react";
 
 export const Todo = () => {
-    //useStateの初期化
+    //入力された文字列を保持するためのuseState
+    const [todoText, setTodoText] = useState("");
+
+    //useStateで未完了のTodoリストと完了したTodoリストを管理
     const [incompleteTodos, setIncompleteTodos] = useState(["Todoです1", "Todoです2"]);
     const [completeTodos, setCompleteTodos] = useState(["Todoでした1", "Todoでした2"]);
+
+    //入力された文字列を取得するためのイベント関数
+    const onChangeTodoText = (event) => setTodoText(event.target.value);
+
+    //追加ボタンが押されたときのイベント関数
+    const onClickAdd = () => {
+        if (todoText === "") return;
+        const newTodos = [...incompleteTodos, todoText];
+        setIncompleteTodos(newTodos);
+        setTodoText("");
+    }
 
     return (
         <>
             <div className="input-area">
-                <input placeholder="TODOを入力" />
-                <button>追加</button>
+                <input placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText} />
+                <button onClick ={onClickAdd}>追加</button>
             </div>
             <div className="incomplete-area">
                 <p className="title">未完了のTodo</p>
