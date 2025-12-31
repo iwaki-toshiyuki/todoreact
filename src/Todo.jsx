@@ -6,8 +6,8 @@ export const Todo = () => {
     const [todoText, setTodoText] = useState("");
 
     //useStateで未完了のTodoリストと完了したTodoリストを管理
-    const [incompleteTodos, setIncompleteTodos] = useState(["Todoです1", "Todoです2"]);
-    const [completeTodos, setCompleteTodos] = useState(["Todoでした1", "Todoでした2"]);
+    const [incompleteTodos, setIncompleteTodos] = useState([]);
+    const [completeTodos, setCompleteTodos] = useState([]);
 
     //入力された文字列を取得するためのイベント関数
     const onChangeTodoText = (event) => setTodoText(event.target.value);
