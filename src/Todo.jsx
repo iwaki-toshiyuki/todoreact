@@ -55,12 +55,20 @@ export const Todo = () => {
         setIncompleteTodos(newIncompleteTodos);
     }
 
+    //未完了のTodoが5個以上の場合に追加ボタンを非活性化するための変数
+    const isMaxLimitIncompleteTodos = incompleteTodos.length >= 5;
+
     //コンポーネントを用いて必要なpropsを渡して表示
     return (
         <>
             {/* InputTodoコンポーネントに必要なpropsを渡す */}
-            <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd} />
+            <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd} disabled={isMaxLimitIncompleteTodos}/>
 
+            {/* 未完了のTodoが5個以上の場合に警告メッセージを表示 */}
+            {isMaxLimitIncompleteTodos && (
+                <p style={{color:"red"}}>登録できるTodoは5個までです。</p>
+            )}   
+            
             {/* IncompleteTodosコンポーネントに必要なpropsを渡す */}
             <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
 
@@ -68,4 +76,4 @@ export const Todo = () => {
             <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
         </>
     );
-}
+};
