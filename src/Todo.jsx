@@ -1,3 +1,6 @@
+import { InputTodo } from "./components/InputTodo";
+import { IncompleteTodos } from "./components/IncompleteTodos";
+import { CompleteTodos } from "./components/CompleteTodos";
 import "./styles.css";
 import { useState } from "react";
 
@@ -52,44 +55,17 @@ export const Todo = () => {
         setIncompleteTodos(newIncompleteTodos);
     }
 
+    //コンポーネントを用いて必要なpropsを渡して表示
     return (
         <>
-            <div className="input-area">
-                <input placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText} />
-                <button onClick ={onClickAdd}>追加</button>
-            </div>
-            <div className="incomplete-area">
-                <p className="title">未完了のTodo</p>
-                <ul>
-                    {/* 未完了のTodoリストをmap関数を用いて表示 */}
-                    {/* index は配列内での位置を表し、イベント処理（削除・完了など）で対象要素を特定するために使用する*/}
-                    {incompleteTodos.map((todo,index) => (
-                            // key は React がリスト要素を一意に識別し、追加・削除・並び替え時の差分更新を正しく行うために必要
-                            <li key={todo}>
-                                <div className="list-row">
-                                    <p className="todo-item">{todo}</p>
-                                    <button onClick={() => onClickComplete(index)}>完了</button>
-                                    {/* 削除ボタンが押されたときにonClickDelete関数を呼び出し、indexを引数として渡す */}
-                                    <button onClick={() => onClickDelete(index)}>削除</button>
-                                </div>
-                            </li>
-                    ))}
-                </ul>
-            </div>
-            <div className="complete-area">
-                <p className="title">完了したTodo</p>
-                <ul>
-                    {/* //完了したTodoリストをmap関数を用いて表示 */}
-                    {completeTodos.map((todo,index) => (
-                        <li key={todo}>
-                            <div className="list-row">
-                                <p className="todo-item">{todo}</p>
-                                <button onClick={() => onClickBack(index)}>戻す</button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {/* InputTodoコンポーネントに必要なpropsを渡す */}
+            <InputTodo todoText={todoText} onChange={onChangeTodoText} onClick={onClickAdd} />
+
+            {/* IncompleteTodosコンポーネントに必要なpropsを渡す */}
+            <IncompleteTodos todos={incompleteTodos} onClickComplete={onClickComplete} onClickDelete={onClickDelete} />
+
+            {/* CompleteTodosコンポーネントに必要なpropsを渡す */}
+            <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
         </>
     );
 }
