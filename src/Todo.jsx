@@ -40,6 +40,18 @@ export const Todo = () => {
         setCompleteTodos(newCompleteTodos);
     }
 
+    //戻すボタンが押されたときのイベント関数
+    const onClickBack = (index) => {
+        //完了したTodoリストから指定したindexの要素を削除
+        const newCompleteTodos = [...completeTodos];
+        newCompleteTodos.splice(index, 1);
+
+        //未完了のTodoリストに追加
+        const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
+        setCompleteTodos(newCompleteTodos);
+        setIncompleteTodos(newIncompleteTodos);
+    }
+
     return (
         <>
             <div className="input-area">
@@ -68,11 +80,11 @@ export const Todo = () => {
                 <p className="title">完了したTodo</p>
                 <ul>
                     {/* //完了したTodoリストをmap関数を用いて表示 */}
-                    {completeTodos.map((todo) => (
+                    {completeTodos.map((todo,index) => (
                         <li key={todo}>
                             <div className="list-row">
                                 <p className="todo-item">{todo}</p>
-                                <button>戻す</button>
+                                <button onClick={() => onClickBack(index)}>戻す</button>
                             </div>
                         </li>
                     ))}
