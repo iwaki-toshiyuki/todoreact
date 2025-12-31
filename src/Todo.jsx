@@ -20,6 +20,14 @@ export const Todo = () => {
         setTodoText("");
     }
 
+    //削除ボタンが押されたときのイベント関数
+    const onClickDelete = (index) => {
+        const newTodos = [...incompleteTodos];
+        //spliceメソッドで指定したindexの要素を配列から削除(1は1つ削除することを意味)
+        newTodos.splice(index, 1);
+        setIncompleteTodos(newTodos);
+    }
+
     return (
         <>
             <div className="input-area">
@@ -29,14 +37,16 @@ export const Todo = () => {
             <div className="incomplete-area">
                 <p className="title">未完了のTodo</p>
                 <ul>
-                    {/* //未完了のTodoリストをmap関数を用いて表示 */}
-                    {incompleteTodos.map((todo) => (
+                    {/* 未完了のTodoリストをmap関数を用いて表示 */}
+                    {/* index は配列内での位置を表し、イベント処理（削除・完了など）で対象要素を特定するために使用する*/}
+                    {incompleteTodos.map((todo,index) => (
                             // key は React がリスト要素を一意に識別し、追加・削除・並び替え時の差分更新を正しく行うために必要
                             <li key={todo}>
                                 <div className="list-row">
                                     <p className="todo-item">{todo}</p>
                                     <button>完了</button>
-                                    <button>削除</button>
+                                    {/* 削除ボタンが押されたときにonClickDelete関数を呼び出し、indexを引数として渡す */}
+                                    <button onClick={() => onClickDelete(index)}>削除</button>
                                 </div>
                             </li>
                     ))}
