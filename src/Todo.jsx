@@ -25,7 +25,9 @@ export const Todo = () => {
 
     //削除ボタンが押されたときのイベント関数
     const onClickDelete = (index) => {
+        //確認ダイアログを表示し、OKが押された場合に削除処理を実行
         if(confirm("本当に削除しますか？")) {
+
         const newTodos = [...incompleteTodos];
         //spliceメソッドで指定したindexの要素を配列から削除(1は1つ削除することを意味)
         newTodos.splice(index, 1);
