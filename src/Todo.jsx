@@ -25,11 +25,13 @@ export const Todo = () => {
 
     //削除ボタンが押されたときのイベント関数
     const onClickDelete = (index) => {
+        if(confirm("本当に削除しますか？")) {
         const newTodos = [...incompleteTodos];
         //spliceメソッドで指定したindexの要素を配列から削除(1は1つ削除することを意味)
         newTodos.splice(index, 1);
         setIncompleteTodos(newTodos);
     }
+}
 
     //完了ボタンが押されたときのイベント関数
     const onClickComplete = (index) => {
